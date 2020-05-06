@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1">
+    <title>login</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+    <link href="../static/css/common.css" rel="stylesheet">
+    <link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/fonts/iconfont.css" rel="stylesheet">
+    <link href="../static/css/base.css" rel="stylesheet">
+    <style>
+        .login-area .form-area {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="header hidden-xs">
+    <div class="logo">
+        <a href="/index">
+            <img src="../static/images/logo-big2.png" alt=""/>
+            旅游信息管理系统
+        </a>
+    </div>
+</div>
+<div class="login-area">
+    <div class="top-link">
+        <em class="visible-xs">
+            <a href="/index" class="iconfont icon-zuo back"></a>
+        </em>
+        <em class="right-link">
+            已有账户，去
+            <a href="/login">登录</a>
+        </em>
+    </div>
+
+    <div class="form-area">
+        <h2>注册</h2>
+        <form action="/register" method="post">
+            <div class="input-item">
+                <label for="username">
+                    <i class="iconfont icon-yonghu"></i>
+                    <input id="username" name="username" type="text" placeholder="用户名" required>
+                </label>
+            </div>
+            <div class="input-item">
+                <label>
+                    <i class="iconfont icon-chengnianrennan"></i>
+                    <select name="sex" required>
+                        <option value="男" selected>男</option>
+                        <option value="女">女</option>
+                    </select>
+                </label>
+            </div>
+            <div class="input-item">
+                <label for="birthday">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                    <input id="birthday" name="birthday" type="date" placeholder="生日" required>
+                </label>
+            </div>
+            <div class="input-item">
+                <label for="phone">
+                    <i class="iconfont icon-dianhua"></i>
+                    <input id="phone" name="phone" type="tel" placeholder="手机号" required>
+                </label>
+                <div id="phoneError" class="error-pane hide">用户已存在！</div>
+            </div>
+            <div class="input-item">
+                <label for="password">
+                    <i class="iconfont icon-mima"></i>
+                    <input id="password" name="password" type="password" placeholder="密码" required>
+                </label>
+                <div id="passwordError" class="error-pane hide">请输入4-16位密码！</div>
+            </div>
+            <div class="input-item">
+                <label for="confirmPassword">
+                    <i class="iconfont icon-mima"></i>
+                    <input id="confirmPassword" type="password" placeholder="确认密码" required>
+                </label>
+                <div id="confirmPasswordError" class="error-pane hide">两次密码输入不一致！</div>
+            </div>
+            <button type="submit" class="primary_button">注册</button>
+        </form>
+    </div>
+</div>
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $("#phone").blur(function () {
+            $.ajax({
+                type: "post",
+                url: "/checkPhone",
+                data: {
+                    phone: $("#phone").val()
+                },
+                dataType: "text",
+                success: function (data) {
+                    if(data==="false"){
+                        $("#phoneError").removeClass("hide");
+                    }else {
+                        if(!$("#phoneError").hasClass("hide")) {
+                            $("#phoneError").addClass("hide");
+                        }
+                    }
+                }
+            });
+        });
+        $("#password").blur(function () {
+            if($("#password").val().length < 4 || $("#password").val().length > 16) {
+                $("#passwordError").removeClass("hide");
+            }else {
+                if(!$("#passwordError").hasClass("hide")) {
+                    $("#passwordError").addClass("hide");
+                }
+            }
+        });
+        $("#confirmPassword").blur(function () {
+            if($("#password").val()!==$("#confirmPassword").val()) {
+                $("#confirmPasswordError").removeClass("hide");
+            }else {
+                if(!$("#confirmPasswordError").hasClass("hide")) {
+                    $("#confirmPasswordError").addClass("hide");
+                }
+            }
+        });
+    })
+</script>
+</body>
+</html>

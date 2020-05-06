@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.hide {
+    display: none;
+}
+.display {
+    display: block;
+}
+a:hover {
+    text-decoration: none;
+}
+.header {
+    height: 70px;
+    line-height: 60px;
+    background-color: #01b7f2;
+    border-bottom: 2px solid #019dcf;
+}
+.logo {
+    height: 100%;
+    padding: 10px;
+}
+.logo a {
+    color: #fff;
+    font-size: 30px;
+}
+.logo img {
+    height: 100%;
+}
+.login-area {
+    position: relative;
+}
+.top-link {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    line-height: 40px;
+}
+.top-link .back {
+    font-size: 14px;
+    float: left;
+}
+.top-link .right-link {
+    float: right;
+}
+.login-area .form-area {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 500px;
+    margin-top: 50px;
+}
+.form-area form {
+    width: 100%;
+    padding: 10px;
+}
+.form-area h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #01b7f2;
+    margin-bottom: 20px;
+}
+.input-item {
+    margin-bottom: 20px;
+}
+.input-item label {
+    position: relative;
+    width: 100%;
+    font-size: 18px;
+}
+.input-item select {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    height: 30px;
+    background-color: transparent;
+}
+.input-item input,
+.input-item select {
+    width: 100%;
+    padding-left: 30px;
+    background-color: transparent;
+    color: #5e5e5e;
+    border-bottom: 1px solid #5e5e5e;
+}
+.input-item i {
+    position: absolute;
+    top:50%;
+    transform: translate(20%, -50%);
+    font-size: 20px;
+}
+.input-item .error-pane {
+    width: 100%;
+    height: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 24px;
+    color: #fff;
+    background-color: #f4472c;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+@media screen and (max-width: 550px) {
+    .login-area .form-area {
+        width: 100%;
+    }
+}

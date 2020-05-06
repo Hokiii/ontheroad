@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="keywords" content="#">
+    <meta name="description" content="#">
+    <title>Hotel Detail</title>
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../static/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../static/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../static/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="../static/images/favicon.ico">
+    <link rel="shortcut icon" href="../static/images/favicon.ico">
+    <!-- Bootstrap -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../static/fonts/iconfont.css" rel="stylesheet">
+    <!-- Fontawesome -->
+    <link href="../static/css/font-awesome.css" rel="stylesheet">
+    <!-- Flaticons -->
+    <link href="../static/css/font/flaticon.css" rel="stylesheet">
+    <!-- Slick Slider -->
+    <link href="../static/css/slick.css" rel="stylesheet">
+    <!-- Range Slider -->
+    <link href="../static/css/ion.rangeSlider.min.css" rel="stylesheet">
+    <!-- Datepicker -->
+    <link href="../static/css/datepicker.css" rel="stylesheet">
+    <!-- magnific popup -->
+    <link href="../static/css/magnific-popup.css" rel="stylesheet">
+    <!-- Nice Select -->
+    <link href="../static/css/nice-select.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link href="../static/css/style.css" rel="stylesheet">
+    <!-- Custom Responsive -->
+    <link href="../static/css/responsive.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+    <!-- CSS for IE -->
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" type="text/css" href="css/ie.css"/>
+    <![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type='text/javascript' src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+    <![endif]-->
+
+    <!-- place -->
+</head>
+<body>
+<!-- Start Header -->
+<header class="header">
+    <!-- Topbar -->
+    <div class="topbar bg-custom-blue">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="right-side">
+                        <ul class="custom-flex">
+                            <li th:if="${session.user == null}">
+                                <a href="/login" class="text-custom-white">登录</a>
+                            </li>
+                            <li th:if="${session.user == null}">
+                                <a href="/register" class="text-custom-white">注册</a>
+                            </li>
+                            <li th:if="${session.user != null}">
+                                欢迎您！
+                                <span th:text="${session.user.getUsername()}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar -->
+    <!-- Navigation -->
+    <div class="navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="main-navigation">
+                        <div class="logo">
+                            <a href="/index">
+                                <img src="../static/images/logo.png" class="img-fluid image-fit" alt="img">
+                            </a>
+                        </div>
+                        <div class="main-menu">
+                            <div class="logo">
+                                <a href="/index">
+                                    <img src="../static/images/toor-logo.png" class="img-fluid image-fit" alt="img">
+                                </a>
+                            </div>
+                            <nav>
+                                <ul class="custom-flex">
+                                    <li class="menu-item active">
+                                        <a href="/index" class="text-light-dark">主页</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/hotels" class="text-light-dark">酒店</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/flights" class="text-light-dark">机票</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/trains" class="text-light-dark">火车票</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/cars" class="text-light-dark">租车</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/productions" class="text-light-dark">旅游团购</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/articles" class="text-light-dark">攻略</a>
+                                    </li>
+                                    <li class="menu-item menu-item-has-children">
+                                        <a href="javascript;" class="text-light-dark">个人中心</a>
+                                        <ul class="custom sub-menu">
+                                            <li th:if="${session.user != null}" class="menu-item">
+                                                <a href="/userInformation" class="text-custom-white">个人信息</a>
+                                            </li>
+                                            <li th:if="${session.user != null}"
+                                                class="menu-item menu-item-has-children">
+                                                <a href="#" class="text-custom-white">我的订单</a>
+                                                <ul class="custom sub-menu">
+                                                    <li class="menu-item">
+                                                        <a href="/flightsOrders" class="text-custom-white">火车票</a>
+                                                    </li>
+                                                    <li class="menu-item">
+                                                        <a href="/carsOrders" class="text-custom-white">机票</a>
+                                                    </li>
+                                                    <li class="menu-item">
+                                                        <a href="/hotelsOrders" class="text-custom-white">酒店</a>
+                                                    </li>
+                                                    <li class="menu-item">
+                                                        <a href="/carsOrders" class="text-custom-white">车辆</a>
+                                                    </li>
+                                                    <li class="menu-item">
+                                                        <a href="/productionsOrders" class="text-custom-white">旅游团购</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li th:if="${session.user != null}" class="menu-item">
+                                                <a href="/myArticles" class="text-custom-white">我的攻略</a>
+                                            </li>
+                                            <li th:if="${session.user != null && session.user.getRole() == 2}"
+                                                class="menu-item">
+                                                <a href="/productionsManage" class="text-custom-white">商品管理</a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a href="/questions" class="text-custom-white">常见问题</a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a href="/contactUs" class="text-custom-white">联系我们</a>
+                                            </li>
+                                            <li class="menu-item" th:if="${session.user != null}">
+                                                <a href="/exit" class="text-custom-white">退出</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="hamburger-menu">
+                            <div class="menu-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Navigation -->
+</header>
+<!-- End Header -->
+<!-- Start Listing detail -->
+<section class="section-padding bg-light-white listing-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="listing-details-inner bx-wrapper bg-custom-white padding-20">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="detail-slider-for mb-xl-20 magnific-gallery">
+                                <div class="slide-item">
+                                    <a th:href="@{'../static/images/hotels/room/'+${hotel.getHotelId()}+'/1_s.jpg'}" class="popup">
+                                        <img th:src="@{'../static/images/hotels/room/'+${hotel.getHotelId()}+'/1_s.jpg'}" class="image-fit" alt="img">
+                                    </a>
+                                </div>
+                                <div class="slide-item">
+                                    <a th:href="@{'../static/images/hotels/room/'+${hotel.getHotelId()}+'/2_s.jpg'}" class="popup">
+                                        <img th:src="@{'../static/images/hotels/room/'+${hotel.getHotelId()}+'/2_s.jpg'}" class="image-fit" alt="img">
+                                    </a>
+                                </div>
+                                <div class="slide-item">
+                                    <a th:href="@{'../static/images/hotels/room/'+${hotel.getHotelId()}+'/3_s.jpg'}" class="popup">
+                                        <img th:src="@{'../static/images/hotels/room/'+${hotel.getHotelId()}+'/3_s.jpg'}" class="image-fit" alt="img">
+                                    </a>
+                                </div>
+                                <div class="slide-item">
+                                    <a th:href="@{'../static/images/hotels/room/'+${hotel.getHotelId()}+'/4_s.jpg'}" class="popup">
+                                        <img th:src="@{'../static/images/hotels/room/'+${hotel.getHotelId()}+'/4_s.jpg'}" class="image-fit" alt="img">
+                                    </a>
+                                </div>
+                                <div class="slide-item">
+                                    <a th:href="@{'../static/images/hotels/room/'+${hotel.getHotelId()}+'/5_s.jpg'}" class="popup">
+                                        <img th:src="@{'../static/images/hotels/room/'+${hotel.getHotelId()}+'/5_s.jpg'}" class="image-fit" alt="img">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="detail-slider-nav row">
+                                <div class="slide-item col-12">
+                                    <img th:src="'../static/images/hotels/room/'+${hotel.getHotelId()}+'/1.jpg'" class="image-fit" alt="img">
+                                </div>
+                                <div class="slide-item col-12">
+                                    <img th:src="'../static/images/hotels/room/'+${hotel.getHotelId()}+'/2.jpg'" class="image-fit" alt="img">
+                                </div>
+                                <div class="slide-item col-12">
+                                    <img th:src="'../static/images/hotels/room/'+${hotel.getHotelId()}+'/3.jpg'" class="image-fit" alt="img">
+                                </div>
+                                <div class="slide-item col-12">
+                                    <img th:src="'../static/images/hotels/room/'+${hotel.getHotelId()}+'/4.jpg'" class="image-fit" alt="img">
+                                </div>
+                                <div class="slide-item col-12">
+                                    <img th:src="'../static/images/hotels/room/'+${hotel.getHotelId()}+'/5.jpg'" class="image-fit" alt="img">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="listing-meta-sec mb-md-80">
+                                <div class="tabs">
+                                    <ul class="custom-flex nav nav-tabs mb-xl-20">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#overview">房型列表</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#amenities">设施服务</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#faqs">酒店评论</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade active show" id="overview">
+                                            <div class="tab-inner container">
+                                                <div th:each="room:${rooms}" class="row border-gary item">
+                                                    <div class="col-md-10 col-xs-6 item-title">
+                                                        <h4>
+                                                           <font th:text="${room.getType()}"></font>
+                                                        </h4>
+                                                        <span th:if="${room.getWifi()==1}">WIFI |</span>
+                                                        <span th:if="${room.getBreakfast()==1}">早餐 |</span>
+                                                        <span th:if="${room.getWindow()==1}">窗户 |</span>
+                                                        <span th:if="${room.getRetreat()==1}">免费取消</span>
+                                                    </div>
+                                                    <div class="col-md-2 col-xs-6 ">
+                                                        <div class="price">
+                                                                <span>
+                                                                    ￥ <font th:text="${room.getPrice()}"></font>
+                                                                </span>
+                                                        </div>
+                                                        <a href="#">立即预定</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="amenities">
+                                            <ul class="custom amenities row no-gutters">
+                                                <li class="col-md-6 col-sm-6">
+                                                    <div class="icon-box text-light-dark">
+                                                        <i class="iconfont icon-tingchechang"></i>
+                                                        免费停车场
+                                                    </div>
+                                                </li>
+                                                <li class="col-md-6 col-sm-6">
+                                                    <div class="icon-box text-light-dark">
+                                                        <i class="iconfont icon-jiesongji"></i>
+                                                        免费接送
+                                                    </div>
+                                                </li>
+                                                <li class="col-md-6 col-sm-6">
+                                                    <div class="icon-box text-light-dark">
+                                                        <i class="iconfont icon-xiedaichongwu"></i>
+                                                        允许携带宠物
+                                                    </div>
+                                                </li>
+                                                <li class="col-md-6 col-sm-6">
+                                                    <div class="icon-box text-light-dark">
+                                                        <i class="iconfont icon-hangcheng"></i>
+                                                        行李寄存
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane fade" id="faqs">
+                                            <!-- comments -->
+                                            <div class="comment-box section-padding-top p-relative">
+                                                <div id="comment-box">
+                                                    <ul class="comments custom">
+                                                        <li class="comment">
+                                                            <article>
+                                                                <div class="comment-content">
+                                                                    <div class="comment-meta">
+                                                                        <div class="comment-meta-header">
+                                                                            <h5 class="text-custom-black fw-600 author mb-3">Rosalina Pong</h5>
+                                                                            <div class="post-date">
+                                                                                <a href="blog-details.html" class="date bg-custom-blue text-custom-white">25 Dec 2019</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="comment">
+                                                                        <p class="text-light-dark">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                                                    </div>
+                                                                </div>
+                                                            </article>
+                                                        </li>
+                                                        <li class="comment">
+                                                            <article>
+                                                                <div class="comment-content">
+                                                                    <div class="comment-meta">
+                                                                        <div class="comment-meta-header">
+                                                                            <h5 class="text-custom-black fw-600 author mb-3">Rosalina Pong</h5>
+                                                                            <div class="post-date">
+                                                                                <a href="blog-details.html" class="date bg-custom-blue text-custom-white">25 Dec 2019</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="comment">
+                                                                        <p class="text-light-dark">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                                                    </div>
+                                                                </div>
+                                                            </article>
+                                                        </li>
+                                                        <li class="comment">
+                                                            <article>
+                                                                <div class="comment-content">
+                                                                    <div class="comment-meta">
+                                                                        <div class="comment-meta-header">
+                                                                            <h5 class="text-custom-black fw-600 author mb-3">Rosalina Pong</h5>
+                                                                            <div class="post-date">
+                                                                                <a href="blog-details.html" class="date bg-custom-blue text-custom-white">25 Dec 2019</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="comment">
+                                                                        <p class="text-light-dark">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                                                    </div>
+                                                                </div>
+                                                            </article>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- comments -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="hotel-grid mb-xl-30">
+                                        <div class="hotel-grid-wrapper bx-wrapper">
+                                            <div class="image-sec p-relative">
+                                                <a href="#">
+                                                    <img th:src="${hotel.getImgUrl()}" class="full-width"
+                                                         alt="img">
+                                                </a>
+                                            </div>
+                                            <div class="hotel-grid-caption padding-20 bg-custom-white p-relative">
+                                                <h4 class="title fs-16">
+                                                    <a href="#" class="text-custom-black">
+                                                        <font th:text="${hotel.getName()}"></font>
+                                                        <small th:text="${hotel.getCity()}" class="text-light-dark"></small>
+                                                    </a>
+                                                </h4>
+                                                <div class="feedback">
+                                                    <div class="ratings">
+                                                        <span th:each="count:${#numbers.sequence(1,hotel.getStar())}" class="text-yellow fs-12"><i
+                                                                class="fas fa-star"></i></span>
+                                                    </div>
+                                                    <span class="review fs-12 text-light-dark">
+                                                            <font th:text="${hotel.getScore()}"></font> 分
+                                                        </span>
+                                                </div>
+                                                <p th:text="${hotel.getProvince()+' '+hotel.getCity()+' '+hotel.getAddress()}" class="text-light-dark"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="need-help bx-wrapper padding-20">
+                                        <h5 class="text-custom-black">联系方式</h5>
+                                        <p class="text-light-dark">如果您需要什么帮助，我们将24小时为您服务。</p>
+                                        <ul class="custom">
+                                            <li class="text-custom-blue fs-18">
+                                                <i class="fas fa-phone-alt"></i>
+                                                <a href="#" class="text-light-dark">
+                                                    <font th:text="${hotel.getConnection()}"></font>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Listing detail -->
+
+
+<!-- Start Copyright -->
+<div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p class="text-custom-white">Copyright &copy; 2020.Company name All rights reserved.<a target="_blank"
+                                                                                                       href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Copyright -->
+<div id="back-top" class="back-top">
+    <a href="#top"><i class="flaticon-arrows"></i></a>
+</div>
+<!-- Place all Scripts Here -->
+<!-- jQuery -->
+<script src="../static/js/jquery.min.js"></script>
+<!-- Popper -->
+<script src="../static/js/popper.min.js"></script>
+<!-- Bootstrap -->
+<script src="../static/js/bootstrap.min.js"></script>
+<!-- Range Slider -->
+<script src="../static/js/ion.rangeSlider.min.js"></script>
+<!-- Slick Slider -->
+<script src="../static/js/slick.min.js"></script>
+<!-- Datepicker -->
+<script src="../static/js/datepicker.js"></script>
+<script src="../static/js/datepicker.en.js"></script>
+<!-- Isotope Gallery -->
+<script src="../static/js/isotope.pkgd.min.js"></script>
+<!-- Nice Select -->
+<script src="../static/js/jquery.nice-select.js"></script>
+<!-- magnific popup -->
+<script src="../static/js/jquery.magnific-popup.min.js"></script>
+<!-- Maps -->
+<script src="https://ditu.google.cn/maps/api/js?key=AIzaSyDnd9JwZvXty-1gHZihMoFhJtCXmHfeRQg"></script>
+<!-- Custom Js -->
+<script src="../static/js/custom.js"></script>
+<!-- /Place all Scripts Here -->
+</body>
+</html>

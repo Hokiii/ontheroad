@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="keywords" content="#">
+    <meta name="description" content="#">
+    <title>Homepage</title>
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../static/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../static/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../static/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="../static/images/favicon.ico">
+    <link rel="shortcut icon" href="../static/images/favicon.ico">
+    <!-- Bootstrap -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../static/fonts/iconfont.css" rel="stylesheet">
+    <!-- Fontawesome -->
+    <link href="../static/css/font-awesome.css" rel="stylesheet">
+    <!-- Flaticons -->
+    <link href="../static/css/font/flaticon.css" rel="stylesheet">
+    <!-- Slick Slider -->
+    <link href="../static/css/slick.css" rel="stylesheet">
+    <!-- Range Slider -->
+    <link href="../static/css/ion.rangeSlider.min.css" rel="stylesheet">
+    <!-- Datepicker -->
+    <link href="../static/css/datepicker.css" rel="stylesheet">
+    <!-- magnific popup -->
+    <link href="../static/css/magnific-popup.css" rel="stylesheet">
+    <!-- Nice Select -->
+    <link href="../static/css/nice-select.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link href="../static/css/style.css" rel="stylesheet">
+    <!-- Custom Responsive -->
+    <link href="../static/css/responsive.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+    <!-- CSS for IE -->
+
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" type="text/css" href="css/ie.css"/>
+    <![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type='text/javascript' src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+    <![endif]-->
+    <!-- place -->
+    <style>
+        .flights-item {
+            padding: 5px;
+        }
+
+        .flights-content {
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<!-- Start Header -->
+<header class="header">
+    <!-- Topbar -->
+    <div class="topbar bg-custom-blue">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="right-side">
+                        <ul class="custom-flex">
+                            <li th:if="${session.user == null}">
+                                <a href="/login" class="text-custom-white">登录</a>
+                            </li>
+                            <li th:if="${session.user == null}">
+                                <a href="/register" class="text-custom-white">注册</a>
+                            </li>
+                            <li th:if="${session.user != null}">
+                                欢迎您！
+                                <span th:text="${session.user.getUsername()}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar -->
+    <!-- Navigation -->
+    <div  id="top" class="navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="main-navigation">
+                        <div class="logo">
+                            <a href="/index">
+                                <img src="../static/images/logo.png" class="img-fluid image-fit" alt="img">
+                            </a>
+                        </div>
+                        <div class="main-menu">
+                            <div class="logo">
+                                <a href="/index">
+                                    <img src="../static/images/toor-logo.png" class="img-fluid image-fit" alt="img">
+                                </a>
+                            </div>
+                            <nav>
+                                <ul class="custom-flex">
+                                    <li class="menu-item active">
+                                        <a href="/index" class="text-light-dark">主页</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/hotels" class="text-light-dark">酒店</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/flights" class="text-light-dark">机票</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/trains" class="text-light-dark">火车票</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/cars" class="text-light-dark">租车</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/productions" class="text-light-dark">旅游团购</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/articles" class="text-light-dark">攻略</a>
+                                    </li>
+                                    <li class="menu-item menu-item-has-children">
+                                        <a href="javascript;" class="text-light-dark">个人中心</a>
+                                        <ul class="custom sub-menu">
+                                            <li th:if="${session.user != null}" class="menu-item">
+                                                <a href="/userInformation" class="text-custom-white">个人信息</a>
+                                            </li>
+                                            <li th:if="${session.user != null}"
+                                                class="menu-item menu-item-has-children">
+                                                <a href="#" class="text-custom-white">我的订单</a>
+                                                <ul class="custom sub-menu">
+                                                    <li class="menu-item">
+                                                        <a href="/flightsOrders" class="text-custom-white">火车票</a>
+                                                    </li>
+                                                    <li class="menu-item">
+                                                        <a href="/carsOrders" class="text-custom-white">机票</a>
+                                                    </li>
+                                                    <li class="menu-item">
+                                                        <a href="/hotelsOrders" class="text-custom-white">酒店</a>
+                                                    </li>
+                                                    <li class="menu-item">
+                                                        <a href="/carsOrders" class="text-custom-white">车辆</a>
+                                                    </li>
+                                                    <li class="menu-item">
+                                                        <a href="/productionsOrders" class="text-custom-white">旅游团购</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li th:if="${session.user != null}" class="menu-item">
+                                                <a href="/myArticles" class="text-custom-white">我的攻略</a>
+                                            </li>
+                                            <li th:if="${session.user != null && session.user.getRole() == 2}"
+                                                class="menu-item">
+                                                <a href="/productionsManage" class="text-custom-white">商品管理</a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a href="/questions" class="text-custom-white">常见问题</a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a href="/contactUs" class="text-custom-white">联系我们</a>
+                                            </li>
+                                            <li class="menu-item" th:if="${session.user != null}">
+                                                <a href="/exit" class="text-custom-white">退出</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="hamburger-menu">
+                            <div class="menu-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Navigation -->
+</header>
+<!-- End Header -->
+<!-- Start 轮播图 -->
+<div class="slider p-relative">
+    <div class="main-banner arrow-layout-1 ">
+        <div class="slide-item">
+            <img src="../static/images/flight-2.jpg" class="image-fit" alt="Slider">
+            <div class="transform-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="slider-content">
+                                <h1 class="text-custom-white">
+                                    现在快来一起<br>发现 <span class="text-custom-blue">世界</span>！
+                                </h1>
+                                <ul class="custom">
+                                    <li class="text-custom-white">
+                                        <i class="fas fa-plane"></i>
+                                        超过500条航线
+                                    </li>
+                                    <li class="text-custom-white">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        13000个好去处
+                                    </li>
+                                    <li class="text-custom-white">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        最优的价格
+                                    </li>
+                                    <li class="text-custom-white">
+                                        <i class="fas fa-comments"></i>
+                                        极佳的客户体验
+                                    </li>
+                                </ul>
+                                <a href="/flights" class="btn-first btn-small">发现更多</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-item">
+            <img src="../static/images/hotel-1.jpg" class="image-fit" alt="Slider">
+            <div class="transform-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="slider-content">
+                                <h1 class="text-custom-white">2020年国内顶级优质 <span
+                                        class="text-custom-blue">酒店</span>!</h1>
+                                <ul class="custom">
+                                    <li class="text-custom-white">
+                                        <i class="fas fa-building"></i>
+                                        超过1000个酒店
+                                    </li>
+                                    <li class="text-custom-white">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        500000个好去处
+                                    </li>
+                                    <li class="text-custom-white">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        价格最优
+                                    </li>
+                                    <li class="text-custom-white">
+                                        <i class="fas fa-comments"></i>
+                                        24小时优质服务
+                                    </li>
+                                </ul>
+                                <a href="/hotels" class="btn-first btn-small">发现更多</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-item">
+            <img src="../static/images/car-1.jpg" class="image-fit" alt="Slider">
+            <div class="transform-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="slider-content">
+                                <h1 class="text-custom-white">手机APP <span
+                                        class="text-custom-blue">租车</span> 首次最高可享25%折扣 ！</h1>
+                                <ul class="custom">
+                                    <li class="text-custom-white">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        保证最优惠的价格
+                                    </li>
+                                    <li class="text-custom-white">
+                                        <i class="fas fa-car"></i>
+                                        送车上门
+                                    </li>
+                                    <li class="text-custom-white">
+                                        <i class="fas fa-laptop"></i>
+                                        轻松预订
+                                    </li>
+                                    <li class="text-custom-white">
+                                        <i class="fas fa-headphones-alt"></i>
+                                        24/7 客户服务
+                                    </li>
+                                </ul>
+                                <a href="/cars" class="btn-first btn-small">发现更多</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End 轮播图 -->
+<!-- Start 简单订购模块 -->
+<div class="banner-tabs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="tabs">
+                    <ul class="custom-flex nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#hotel">酒店</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#flights">机票</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#cruise">火车票</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#cars">车辆</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content bg-custom-white bx-wrapper padding-20">
+                        <div class="tab-pane active" id="hotel">
+                            <div class="tab-inner">
+                                <form action="/hotelsWithParameter">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="form-group">
+                                                <label class="fs-14 text-custom-black fw-500">目的地</label>
+                                                <input type="text" name="destination" class="form-control form-control-custom"
+                                                       placeholder="目的地/酒店名称">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label class="fs-14 text-custom-black fw-500">入住日期</label>
+                                                        <div class="input-group group-form">
+                                                            <input type="text" name="checkIn"
+                                                                   class="form-control form-control-custom datepickr"
+                                                                   placeholder="mm/dd/yy" readonly>
+                                                            <span class="input-group-append">
+                                                                  <i class="far fa-calendar"></i>
+                                                              </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label class="fs-14 text-custom-black fw-500">退房日期</label>
+                                                        <div class="input-group group-form">
+                                                            <input type="text" name="checkOut"
+                                                                   class="form-control form-control-custom datepickr"
+                                                                   placeholder="mm/dd/yy" readonly>
+                                                            <span class="input-group-append">
+                                                                  <i class="far fa-calendar"></i>
+                                                              </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-6">
+                                            <label class="submit"></label>
+                                            <button type="submit"
+                                                    class="btn-first btn-submit full-width btn-height">搜索
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="flights">
+                            <div class="tab-inner">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="form-group">
+                                                <label class="fs-14 text-custom-black fw-500">出发城市</label>
+                                                <input type="text" name="#" class="form-control form-control-custom"
+                                                       placeholder="出发城市">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="form-group">
+                                                <label class="fs-14 text-custom-black fw-500">到达城市</label>
+                                                <input type="text" name="#" class="form-control form-control-custom"
+                                                       placeholder="出发城市">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label class="fs-14 text-custom-black fw-500">出发日期</label>
+                                                        <div class="input-group group-form">
+                                                            <input type="text" name="#"
+                                                                   class="form-control form-control-custom datepickr"
+                                                                   placeholder="mm/dd/yy" readonly>
+                                                            <span class="input-group-append">
+                                                                  <i class="far fa-calendar"></i>
+                                                              </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    <div class="form-group">
+                                                        <label class="submit"></label>
+                                                        <button class="btn-first btn-submit full-width btn-height">
+                                                            搜索
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="cruise">
+                            <div class="tab-inner">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="form-group">
+                                                <label class="fs-14 text-custom-black fw-500">出发城市</label>
+                                                <input type="text" name="#" class="form-control form-control-custom"
+                                                       placeholder="出发城市">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="form-group">
+                                                <label class="fs-14 text-custom-black fw-500">到达城市</label>
+                                                <input type="text" name="#" class="form-control form-control-custom"
+                                                       placeholder="出发城市">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label class="fs-14 text-custom-black fw-500">出发日期</label>
+                                                        <div class="input-group group-form">
+                                                            <input type="text" name="#"
+                                                                   class="form-control form-control-custom datepickr"
+                                                                   placeholder="mm/dd/yy" readonly>
+                                                            <span class="input-group-append">
+                                                                  <i class="far fa-calendar"></i>
+                                                              </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-12">
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    <div class="form-group">
+                                                        <label class="submit"></label>
+                                                        <button class="btn-first btn-submit full-width btn-height">
+                                                            搜索
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="cars">
+                            <div class="tab-inner">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="form-group">
+                                                <label class="fs-14 text-custom-black fw-500">用车地点</label>
+                                                <input type="text" name="#" class="form-control form-control-custom"
+                                                       placeholder="目的地/酒店名称">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label class="fs-14 text-custom-black fw-500">用车日期</label>
+                                                        <div class="input-group group-form">
+                                                            <input type="text" name="#"
+                                                                   class="form-control form-control-custom datepickr"
+                                                                   placeholder="mm/dd/yy" readonly>
+                                                            <span class="input-group-append">
+                                                                  <i class="far fa-calendar"></i>
+                                                              </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label class="fs-14 text-custom-black fw-500">还车日期</label>
+                                                        <div class="input-group group-form">
+                                                            <input type="text" name="#"
+                                                                   class="form-control form-control-custom datepickr"
+                                                                   placeholder="mm/dd/yy" readonly>
+                                                            <span class="input-group-append">
+                                                                  <i class="far fa-calendar"></i>
+                                                              </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-6">
+                                            <label class="submit"></label>
+                                            <button type="submit"
+                                                    class="btn-first btn-submit full-width btn-height">搜索
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End 简单订购模块 -->
+<!-- Start 推荐产品 -->
+<section class="section-padding hotels-sec bg-light-white">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-heading">
+                <h3 class="text-custom-black">推荐产品</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="hotel-slider arrow-layout-2 row">
+                    <div th:each="production:${session.top5Productions}" class="slide-item col-12">
+                        <div class="hotel-grid">
+                            <div class="hotel-grid-wrapper bx-wrapper">
+                                <div class="image-sec animate-img">
+                                    <a href="hotel-detail.html">
+                                        <img th:src="${production.getProductionImgUrl()}"
+                                             src="../static/images/productions/1.png" class="full-width" alt="img">
+                                    </a>
+                                </div>
+                                <div class="hotel-grid-caption padding-20 bg-custom-white p-relative">
+                                    <h4 class="title fs-16">
+                                        <a href="hotel-detail.html" class="text-custom-black">
+                                            <span class="one-line" th:text="${production.getProductionName()}"></span>
+                                            <small th:text="${production.getProductionLocation()}"
+                                                   class="text-light-dark"></small>
+                                        </a>
+                                    </h4>
+                                    <span class="price">
+                                        <small>每晚</small>
+                                        ￥ <span th:text="${production.getProductionPrice()}"></span>
+                                    </span>
+                                    <div class="action">
+                                        <a class="btn-second btn-small" href="hotel-detail.html">查看</a>
+                                        <a class="btn-first btn-submit" href="booking.html">订购</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End 推荐产品 -->
+<!-- Start 特价机票 -->
+<section class="section-padding flights-sec bg-light-white">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-heading">
+                <h3 class="text-custom-black">特价机票</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="flights-slider arrow-layout-2 row">
+                    <div th:each="flights:${session.top8LowPriceFlights}" class="slide-item col-12">
+                        <div class="flights-grid">
+                            <div class="flights-grid-wrapper bx-wrapper">
+                                <div class="flights-grid-caption padding-20 bg-custom-white p-relative">
+                                    <div class="heading-sec">
+                                        <div class="left-side">
+                                            <i class="fas fa-plane text-gray"></i>
+                                            <div class="title">
+                                                <h4 class="fs-16">
+                                                    <a href="flight-detail.html" class="text-custom-black">
+                                                        <font th:text="${flights.getDepartureCity()}"></font>
+                                                        <em class="iconfont icon-chufadaodaxiao"></em>
+                                                        <font th:text="${flights.getArrivalCity()}"></font>
+                                                    </a>
+                                                    <span class="text-light-dark">单程</span>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                        <div class="right-side">
+                                                    <span class="price">
+                                                        <small>价格</small>￥ <font th:text="${flights.getPrice()}"></font></span>
+                                        </div>
+                                    </div>
+                                    <div class="action">
+                                        <a class="btn-second btn-small" href="flight-detail.html" tabindex="-1">查看</a>
+                                        <a class="btn-first btn-submit" href="booking.html" tabindex="-1">订购</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End 特价机票 -->
+<!-- Start 热门车辆 -->
+<section class="section-padding car-booking">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-heading">
+                <h3 class="text-custom-black">热门车辆</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="hotel-slider arrow-layout-2 row">
+                    <div th:each="car:${session.top5ScoreCars}" class="slide-item col-12">
+                        <div class="hotel-grid">
+                            <div class="hotel-grid-wrapper car-grid bx-wrapper">
+                                <div class="image-sec animate-img">
+                                    <a href="car-detail.html">
+                                        <img th:src="${car.getImgUrl()}" class="full-width" alt="img">
+                                        <!--                                        <img src="../static/images/cars/1.jpg" class="full-width" alt="img">-->
+                                    </a>
+                                </div>
+                                <div class="hotel-grid-caption padding-20 bg-custom-white p-relative">
+                                    <h4 class="title fs-16">
+                                        <a href="car-detail.html" class="text-custom-black">
+                                            <font th:text="${car.getCarName()}"></font>
+                                            <small class="text-light-dark">
+                                                <font th:text="${car.getCarType()}"></font> |
+                                                <font th:text="${car.getSeats()}"></font>座
+                                            </small>
+                                        </a>
+                                    </h4>
+                                    <span class="price">
+                                        <small>每天</small>
+                                        ￥ <font th:text="${car.getPrice()}"></font>
+                                    </span>
+                                    <div class="action">
+                                        <a class="btn-second btn-small" href="car-detail.html">查看</a>
+                                        <a class="btn-first btn-submit yellow" href="booking.html">订购</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End 热门车辆 -->
+<!-- Start 热门攻略 -->
+<section class="section-padding bg-light-white our_articles">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-heading">
+                <h3 class="text-custom-black">热门攻略</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="blog-slider arrow-layout-2 row">
+                    <!-- article -->
+                    <article th:each="article:${session.top5LikesArticles}" class="col-12 post slide-item">
+                        <div class="post-wrapper bx-wrapper">
+                            <div class="post-img animate-img">
+                                <a href="blog-details.html">
+                                    <img src="../static/images/blog/blog_grid_1.jpg" class="full-width" alt="img">
+                                </a>
+                                <div class="post-date">
+                                    <div class="text-custom-white fw-600 date bg-custom-blue">
+                                        <font th:text="${article.getDate().split('-')[2]}"></font>
+                                    </div>
+                                    <div class="text-custom-white year">
+                                        <font th:text="${article.getDate().split('-')[0]}"></font> /
+                                        <font th:text="${article.getDate().split('-')[1]}"></font>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="blog-meta padding-20 bg-custom-white p-relative">
+                                <div class="post-meta mb-xl-20">
+                                    <a href="blog-details.html" class="text-light-dark mr-1">
+                                        <span class="text-custom-blue">
+                                            <i class="iconfont icon-shoucang"></i>
+                                        </span>
+                                        <font th:text="${article.getCollect()}"></font> 收藏
+                                    </a>
+                                    <a href="blog-details.html" class="text-light-dark mr-1">
+                                        <span class="text-custom-blue">
+                                            <i class="fas fa-thumbs-up"></i>
+                                        </span>
+                                        <font th:text="${article.getLikes()}"></font> 喜欢
+                                    </a>
+                                </div>
+                                <div class="post-heading">
+                                    <h2>
+                                        <a href="blog-details.html" class="text-custom-black fw-600 fs-20 one-line">
+                                            <font th:text="${article.getTitle()}"></font>
+                                        </a>
+                                    </h2>
+                                    <p class="text-light-dark no-margin three-line">
+                                        <font th:text="${article.getContent()}"></font>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="post-footer">
+                                <div class="post-author">
+                                    <cite class="text-custom-black">
+                                        作者
+                                        <a href="blog-details.html">
+                                            <font th:text="${article.getAuthor()}"></font>
+                                        </a>
+                                    </cite>
+                                </div>
+                                <a href="blog-details.html" class="text-custom-blue fs-14 fs-600">查看更多</a>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- article -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End 热门攻略 -->
+<!-- Start 旅行服务 -->
+<section class="section-padding our-services-sec bg-light-white">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-heading">
+                <h3 class="text-custom-black">旅行服务</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="service-box p-relative mb-xl-30">
+                    <div class="service-wrapper bg-custom-white bx-wrapper">
+                        <div class="service-img animate-img">
+                            <a href="#">
+                                <img src="../static/images/visa.png" class="image-fit" alt="img">
+                            </a>
+                        </div>
+                        <div class="service-text padding-15">
+                            <h5><a href="#" class="text-custom-black">签证</a></h5>
+                            <p class="text-light-dark">
+                                服务优质，方便快捷，诚信可靠，出签率高
+                            </p>
+                            <a href="#" class="btn-second btn-small">查看全部</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="service-box p-relative mb-xl-30">
+                    <div class="service-wrapper bg-custom-white bx-wrapper">
+                        <div class="service-img animate-img">
+                            <a href="#">
+                                <i class="iconfont "></i>
+                                <img src="../static/images/insurance.png" class="image-fit" alt="img">
+                            </a>
+                        </div>
+                        <div class="service-text padding-15">
+                            <h5><a href="#" class="text-custom-black">保险</a></h5>
+                            <p class="text-light-dark">
+                                旅游定制、安心随行、极速出保、便捷理赔
+                            </p>
+                            <a href="#" class="btn-second btn-small">查看全部</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End 旅行服务 -->
+<!-- Start 版权声明 -->
+<div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p class="text-custom-white">Copyright &copy; 2020.On the Road All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End 版权声明 -->
+<div id="back-top" class="back-top">
+    <a href="#top"><i class="flaticon-arrows"></i></a>
+</div>
+<!-- Place all Scripts Here -->
+<!-- jQuery -->
+<script src="../static/js/jquery.min.js"></script>
+<!-- Popper -->
+<script src="../static/js/popper.min.js"></script>
+<!-- Bootstrap -->
+<script src="../static/js/bootstrap.min.js"></script>
+<!-- Range Slider -->
+<script src="../static/js/ion.rangeSlider.min.js"></script>
+<!-- Slick Slider -->
+<script src="../static/js/slick.min.js"></script>
+<!-- Datepicker -->
+<script src="../static/js/datepicker.js"></script>
+<script src="../static/js/datepicker.en.js"></script>
+<!-- Isotope Gallery -->
+<script src="../static/js/isotope.pkgd.min.js"></script>
+<!-- Nice Select -->
+<script src="../static/js/jquery.nice-select.js"></script>
+<!-- magnific popup -->
+<script src="../static/js/jquery.magnific-popup.min.js"></script>
+<!-- Maps -->
+<script src="https://ditu.google.cn/maps/api/js?key=AIzaSyDnd9JwZvXty-1gHZihMoFhJtCXmHfeRQg"></script>
+<!-- Custom Js -->
+<script src="../static/js/custom.js"></script>
+<!-- /Place all Scripts Here -->
+</body>
+</html>
